@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fehér Zalán esküvői fotós – Esküvői galériák, emlékek esküvőnként.">
+  <title>Galériák — Fehér Zalán Esküvői Fotós</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── ROOT & RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Josefin Sans', sans-serif; font-weight: 300;
+      background: var(--c-black); color: var(--c-white);
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; background: none; border: none; color: inherit; }
+
+    :root {
+      --c-white:   #FAF8F4;
+      --c-cream:   #F0EBE3;
+      --c-black:   #0C0B08;
+      --c-dark:    #161412;
+      --c-gray:    #78746E;
+      --c-gold:    #B4B2AC;
+      --c-gold-lt: #D0CEC8;
+      --c-gold-dk: #7C7A76;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --easeS: cubic-bezier(0.4, 0, 0.2, 1);
+      --max: 1200px;
+    }
+
+    /* ─── NAVIGATION ─── */
+    #bar {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--c-gold-dk), var(--c-gold-lt));
+      z-index: 3000;
+      transition: width 0.06s linear;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      padding: 28px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: var(--c-white);
+      background: linear-gradient(to bottom, rgba(12,11,8,.55) 0%, transparent 100%);
+      transition: background .6s var(--easeS), padding .6s var(--easeS), box-shadow .6s;
+    }
+    nav.solid {
+      background: rgba(12,11,8,.95);
+      backdrop-filter: blur(20px);
+      padding: 15px 52px;
+      box-shadow: 0 1px 0 rgba(180,178,172,.12);
+    }
+    .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+    .mono {
+      width: 38px; height: 38px; border: 1px solid var(--c-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 500; color: var(--c-gold);
+      letter-spacing: .04em; flex-shrink: 0;
+      transition: background .3s;
+    }
+    .brand:hover .mono { background: rgba(180,178,172,.1); }
+    .bname {
+      font-weight: 200; font-size: .73rem;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--c-white);
+    }
+    .nl { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nl a {
+      font-weight: 200; font-size: .7rem;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--c-white);
+      position: relative; transition: color .3s;
+    }
+    .nl a::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 0; width: 0; height: 1px;
+      background: var(--c-gold); transition: width .3s;
+    }
+    .nl a:hover, .nl a.active { color: var(--c-gold); }
+    .nl a:hover::after, .nl a.active::after { width: 100%; }
+    .burg {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .burg span {
+      display: block; width: 26px; height: 1px;
+      background: var(--c-white);
+      transition: transform .3s, opacity .3s;
+    }
+    .burg.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .burg.open span:nth-child(2) { opacity: 0; }
+    .burg.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mob {
+      position: fixed; inset: 0; background: var(--c-black); z-index: 999;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: opacity .5s, visibility .5s;
+    }
+    .mob.open { opacity: 1; visibility: visible; }
+    .mob ul { list-style: none; text-align: center; }
+    .mob ul li { margin: 18px 0; }
+    .mob ul a {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300; font-size: 3rem;
+      color: var(--c-white); letter-spacing: .06em; transition: color .3s;
+    }
+    .mob ul a:hover { color: var(--c-gold); }
+
+    /* ─── PAGE HEADER ─── */
+    .pg-hd {
+      min-height: 38vh; display: flex; align-items: center; justify-content: center;
+      background: var(--c-dark);
+      padding: 120px 24px 80px;
+      text-align: center;
+      border-bottom: 1px solid rgba(180,178,172,.08);
+      position: relative; overflow: hidden;
+    }
+    .pg-hd::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(180,178,172,.07), transparent 70%);
+      pointer-events: none;
+    }
+    .pg-hd-in { position: relative; z-index: 1; }
+    .slbl {
+      display: block; font-size: .58rem; letter-spacing: .38em;
+      text-transform: uppercase; color: var(--c-gold); margin-bottom: 16px;
+    }
+    .pg-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 4.2rem); color: var(--c-white);
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .pg-rule {
+      width: 48px; height: 1px; background: rgba(180,178,172,.4);
+      margin: 0 auto 20px;
+    }
+    .pg-sub {
+      font-size: .72rem; letter-spacing: .12em;
+      color: rgba(250,248,244,.45); max-width: 420px; margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ─── WEDDING GRID ─── */
+    .wed-section {
+      background: var(--c-black);
+      padding: 80px 48px 120px;
+    }
+    .wed-grid {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .wed-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      aspect-ratio: 4/3;
+      background: var(--c-dark);
+    }
+    .wed-cover {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 1s var(--ease), filter .8s;
+      transform: scale(1.02);
+    }
+    .wed-card:hover .wed-cover { transform: scale(1.08); filter: brightness(.75); }
+    .wed-card-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(12,11,8,.88) 0%, rgba(12,11,8,.3) 45%, transparent 70%);
+      padding: 28px 24px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .wed-num {
+      font-size: .52rem; letter-spacing: .32em; text-transform: uppercase;
+      color: var(--c-gold); margin-bottom: 8px;
+    }
+    .wed-names {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 1.35rem; color: var(--c-white); line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .wed-meta {
+      font-size: .56rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(250,248,244,.5);
+    }
+    .wed-btn {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .4s;
+    }
+    .wed-card:hover .wed-btn { opacity: 1; }
+    .wed-btn-in {
+      border: 1px solid rgba(180,178,172,.6);
+      padding: 10px 20px;
+      font-size: .56rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--c-gold-lt);
+      background: rgba(12,11,8,.55);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Empty state card (+ add new) */
+    .wed-card-add {
+      border: 1px dashed rgba(180,178,172,.18);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      aspect-ratio: 4/3; color: rgba(180,178,172,.3);
+      font-size: .58rem; letter-spacing: .24em; text-transform: uppercase;
+      cursor: default;
+    }
+    .wed-card-add svg { width: 28px; height: 28px; opacity: .4; }
+
+    /* ─── GALLERY OVERLAY ─── */
+    .gal-ov {
+      position: fixed; inset: 0; z-index: 2000;
+      background: var(--c-black);
+      display: flex; flex-direction: column; align-items: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .5s var(--ease);
+    }
+    .gal-ov.open { opacity: 1; pointer-events: all; }
+
+    .gal-ov-head {
+      width: 100%; padding: 24px 48px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; z-index: 10;
+    }
+    .gal-ov-info {}
+    .gal-ov-names {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(1.2rem, 2.4vw, 2rem); color: var(--c-white);
+    }
+    .gal-ov-meta {
+      font-size: .55rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,248,244,.4); margin-top: 4px;
+    }
+    .gal-ov-close {
+      width: 44px; height: 44px; border: 1px solid rgba(250,248,244,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: rgba(250,248,244,.5);
+      transition: border-color .3s, color .3s;
+    }
+    .gal-ov-close:hover { border-color: var(--c-gold); color: var(--c-gold); }
+
+    /* Fan carousel stage */
+    .fan-stage {
+      flex: 1; width: 100%; position: relative;
+      perspective: 1400px; perspective-origin: 50% 50%;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .fan-card {
+      position: absolute;
+      width: clamp(260px, 38vw, 560px);
+      height: calc(clamp(260px, 38vw, 560px) * (2/3));
+      border-radius: 12px; overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 24px 72px rgba(0,0,0,.75);
+      transform-origin: 50% 50%;
+      transition: box-shadow .45s ease;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .fan-card img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      pointer-events: none;
+    }
+    .fan-card-num {
+      position: absolute; bottom: 12px; right: 14px;
+      font-size: .52rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(250,248,244,.55);
+    }
+    .fan-card.is-center { box-shadow: 0 32px 96px rgba(0,0,0,.85); }
+    .fan-card.is-center:hover { box-shadow: 0 36px 100px rgba(180,178,172,.2), 0 32px 96px rgba(0,0,0,.85); }
+
+    /* Fan navigation */
+    .fan-nav {
+      flex-shrink: 0; padding: 18px 48px 32px;
+      display: flex; align-items: center; justify-content: center; gap: 32px;
+      width: 100%;
+    }
+    .fan-btn {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(250,248,244,.15);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(250,248,244,.5);
+      transition: border-color .3s, color .3s, transform .2s;
+    }
+    .fan-btn:hover { border-color: var(--c-gold); color: var(--c-gold); transform: scale(1.05); }
+    .fan-btn svg { width: 18px; height: 18px; }
+    .fan-dots { display: flex; align-items: center; gap: 8px; }
+    .fan-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(250,248,244,.2);
+      transition: background .35s, transform .35s, width .35s;
+      cursor: pointer;
+    }
+    .fan-dot.active { background: var(--c-gold); transform: scale(1.3); }
+    .fan-counter {
+      flex-shrink: 0;
+      font-size: .56rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,248,244,.3); min-width: 64px; text-align: center;
+    }
+
+    /* ─── LIGHTBOX ─── */
+    #lb2 {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(7,6,4,.97);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: opacity .4s, visibility .4s;
+    }
+    #lb2.on { opacity: 1; visibility: visible; }
+    #lb2 img {
+      max-width: 92vw; max-height: 88vh;
+      object-fit: contain; border-radius: 4px;
+      opacity: 0; transition: opacity .35s;
+    }
+    #lb2 img.show { opacity: 1; }
+    .lb2-x {
+      position: absolute; top: 20px; right: 24px;
+      font-size: 1.1rem; color: rgba(250,248,244,.4);
+      width: 44px; height: 44px;
+      border: 1px solid rgba(250,248,244,.12);
+      display: flex; align-items: center; justify-content: center;
+      transition: color .3s, border-color .3s;
+    }
+    .lb2-x:hover { color: var(--c-gold); border-color: var(--c-gold); }
+    .lb2-btn {
+      position: absolute; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; color: rgba(250,248,244,.3);
+      width: 56px; height: 80px;
+      display: flex; align-items: center; justify-content: center;
+      transition: color .3s;
+    }
+    .lb2-btn:hover { color: var(--c-gold); }
+    #lb2Prev { left: 8px; }
+    #lb2Next { right: 8px; }
+    #lb2Num {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      font-size: .56rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,248,244,.3);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--c-black); border-top: 1px solid rgba(180,178,172,.1);
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ft-brand {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300;
+      color: rgba(250,248,244,.4);
+    }
+    .ft-links { display: flex; gap: 32px; }
+    .ft-links a {
+      font-size: .56rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,248,244,.3); transition: color .3s;
+    }
+    .ft-links a:hover { color: var(--c-gold); }
+    .ft-copy { font-size: .52rem; letter-spacing: .1em; color: rgba(250,248,244,.2); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      nav.solid { padding: 13px 24px; }
+      .nl { display: none; }
+      .burg { display: flex; }
+      .wed-section { padding: 60px 0 80px; }
+      .wed-grid { grid-template-columns: repeat(2, 1fr); }
+      .fan-nav { padding: 14px 24px 24px; gap: 20px; }
+      .gal-ov-head { padding: 20px 24px 0; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 20px; text-align: center; }
+      .ft-links { justify-content: center; }
+    }
+    @media (max-width: 560px) {
+      .wed-grid { grid-template-columns: 1fr; }
+      .wed-section { padding: 40px 0 60px; }
+      .pg-hd { padding: 100px 24px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ NAVIGATION ════ -->
+<div id="bar"></div>
+<nav id="nav">
+  <div class="brand" onclick="location.href='index.html'">
+    <div class="mono">FZ</div>
+    <span class="bname">Fehér Zalán</span>
+  </div>
+  <ul class="nl">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="index.html#galeria">Portfólió</a></li>
+    <li><a href="galeria.html" class="active">Galériák</a></li>
+    <li><a href="index.html#arak">Árak</a></li>
+    <li><a href="index.html#kapcsolat">Kapcsolat</a></li>
+  </ul>
+  <div class="burg" id="burg"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mob" id="mob">
+  <ul>
+    <li><a href="index.html"          class="ml">Főoldal</a></li>
+    <li><a href="index.html#galeria"  class="ml">Portfólió</a></li>
+    <li><a href="galeria.html"        class="ml">Galériák</a></li>
+    <li><a href="index.html#arak"     class="ml">Árak</a></li>
+    <li><a href="index.html#kapcsolat" class="ml">Kapcsolat</a></li>
+  </ul>
+</div>
+
+<!-- ════ PAGE HEADER ════ -->
+<header class="pg-hd">
+  <div class="pg-hd-in">
+    <span class="slbl">Munkáim</span>
+    <h1 class="pg-title">Esküvői galériák</h1>
+    <div class="pg-rule"></div>
+    <p class="pg-sub">Minden esküvő egy egyedi történet — böngéssz a galériák között, és fedezd fel a pillanatokat.</p>
+  </div>
+</header>
+
+<!-- ════ WEDDING GRID ════ -->
+<section class="wed-section">
+  <div class="wed-grid" id="wedGrid"></div>
+</section>
+
+<!-- ════ GALLERY OVERLAY ════ -->
+<div class="gal-ov" id="galOv" role="dialog" aria-modal="true" aria-label="Galéria">
+  <div class="gal-ov-head">
+    <div class="gal-ov-info">
+      <div class="gal-ov-names" id="ovNames"></div>
+      <div class="gal-ov-meta" id="ovMeta"></div>
+    </div>
+    <button class="gal-ov-close" id="ovClose" aria-label="Bezárás">✕</button>
+  </div>
+
+  <div class="fan-stage" id="fanStage"></div>
+
+  <div class="fan-nav">
+    <button class="fan-btn" id="fanPrev" aria-label="Előző">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <div class="fan-dots" id="fanDots"></div>
+    <span class="fan-counter" id="fanCounter"></span>
+    <button class="fan-btn" id="fanNext" aria-label="Következő">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ════ LIGHTBOX ════ -->
+<div id="lb2">
+  <button class="lb2-x" id="lb2X">✕</button>
+  <img id="lb2Img" alt="Esküvői fotó">
+  <button class="lb2-btn" id="lb2Prev">‹</button>
+  <button class="lb2-btn" id="lb2Next">›</button>
+  <span id="lb2Num"></span>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <span class="ft-brand">Fehér Zalán</span>
+  <div class="ft-links">
+    <a href="index.html">Főoldal</a>
+    <a href="index.html#rolam">Rólam</a>
+    <a href="index.html#kapcsolat">Kapcsolat</a>
+  </div>
+  <span class="ft-copy">© 2025 Fehér Zalán Fotográfia</span>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════
+   WEDDING DATA — add/edit weddings here
+   Each wedding needs:
+     title:    "Pár neve"
+     date:     "Dátum"
+     location: "Helyszín"
+     cover:    "borítókép elérési útja"
+     photos:   ["kép1", "kép2", ...]
+═══════════════════════════════════════════════ */
+const WEDDINGS = [
+  {
+    title: 'Simon & Teó',
+    date: '2024. május 18.',
+    location: 'Balatonfüred',
+    cover:  'images/esk%C3%BCv%C5%911/img02.jpg',
+    photos: [
+      'images/esk%C3%BCv%C5%911/img02.jpg',
+      'images/esk%C3%BCv%C5%911/img03.jpg',
+      'images/esk%C3%BCv%C5%911/img04.jpg',
+      'images/esk%C3%BCv%C5%911/img05.jpg',
+      'images/esk%C3%BCv%C5%911/img06.jpg',
+      'images/esk%C3%BCv%C5%911/img07.jpg',
+      'images/esk%C3%BCv%C5%911/img08.jpg',
+    ]
+  },
+  {
+    title: 'Anna & Dávid',
+    date: '2024. július 6.',
+    location: 'Eger',
+    cover:  'images/esk%C3%BCv%C5%911/img09.jpg',
+    photos: [
+      'images/esk%C3%BCv%C5%911/img09.jpg',
+      'images/esk%C3%BCv%C5%911/img10.jpg',
+      'images/esk%C3%BCv%C5%911/img11.jpg',
+      'images/esk%C3%BCv%C5%911/img12.jpg',
+      'images/esk%C3%BCv%C5%911/img13.jpg',
+      'images/esk%C3%BCv%C5%911/img14.jpg',
+      'images/esk%C3%BCv%C5%911/img15.jpg',
+    ]
+  },
+  {
+    title: 'Réka & Bence',
+    date: '2024. augusztus 24.',
+    location: 'Pécs',
+    cover:  'images/esk%C3%BCv%C5%911/img16.jpg',
+    photos: [
+      'images/esk%C3%BCv%C5%911/img16.jpg',
+      'images/esk%C3%BCv%C5%911/img17.jpg',
+      'images/esk%C3%BCv%C5%911/img18.jpg',
+      'images/esk%C3%BCv%C5%911/img19.jpg',
+      'images/esk%C3%BCv%C5%911/img20.jpg',
+      'images/esk%C3%BCv%C5%911/img21.jpg',
+      'images/esk%C3%BCv%C5%911/img22.jpg',
+    ]
+  },
+];
+
+/* ═══ Build wedding grid ═══ */
+const grid = document.getElementById('wedGrid');
+
+WEDDINGS.forEach(function(wed, i) {
+  const card = document.createElement('div');
+  card.className = 'wed-card';
+  card.innerHTML =
+    '<img class="wed-cover" src="' + wed.cover + '" alt="' + wed.title + '" loading="lazy">' +
+    '<div class="wed-card-ov">' +
+      '<span class="wed-num">' + String(i + 1).padStart(2, '0') + ' · ' + wed.photos.length + ' fotó</span>' +
+      '<div class="wed-names">' + wed.title + '</div>' +
+      '<div class="wed-meta">' + wed.date + ' · ' + wed.location + '</div>' +
+    '</div>' +
+    '<div class="wed-btn"><div class="wed-btn-in">Galéria megtekintése</div></div>';
+  card.addEventListener('click', function() { openGallery(i); });
+  grid.appendChild(card);
+});
+
+/* Placeholder "add" card */
+const addCard = document.createElement('div');
+addCard.className = 'wed-card-add';
+addCard.innerHTML =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">' +
+    '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>' +
+  '</svg>' +
+  '<span>Új galéria</span>';
+grid.appendChild(addCard);
+
+/* ═══ Fan carousel ═══ */
+const galOv    = document.getElementById('galOv');
+const fanStage = document.getElementById('fanStage');
+const fanDots  = document.getElementById('fanDots');
+const fanCtr   = document.getElementById('fanCounter');
+const ovNames  = document.getElementById('ovNames');
+const ovMeta   = document.getElementById('ovMeta');
+
+let fanCards   = [];
+let fanIdx     = 0;       /* snapped integer index */
+let fanPos     = 0;       /* lerp'd float position */
+let fanTarget  = 0;       /* target for lerp */
+let fanRaf     = null;
+let activePhotos = [];
+
+/* Position each card based on continuous float offset from center */
+function fanLayout() {
+  const stageW = fanStage.offsetWidth || window.innerWidth;
+  const spacing = Math.min(stageW * 0.28, 300);
+
+  fanCards.forEach(function(card, i) {
+    const off    = i - fanPos;
+    const absOff = Math.abs(off);
+    const tx     = off * spacing;
+    const ty     = absOff * absOff * 14;
+    const ry     = off * 16;
+    const sc     = Math.max(0.5, 1 - absOff * 0.1);
+    const op     = Math.max(0.08, 1 - absOff * 0.22);
+    const zi     = Math.round(200 - absOff * 20);
+
+    card.style.transform = 'translateX(' + tx + 'px) translateY(' + ty + 'px) rotateY(' + ry + 'deg) scale(' + sc + ')';
+    card.style.opacity   = op;
+    card.style.zIndex    = zi;
+    card.classList.toggle('is-center', absOff < 0.5);
+  });
+
+  /* dots */
+  document.querySelectorAll('.fan-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i === Math.round(fanPos));
+  });
+  fanCtr.textContent = (Math.round(fanPos) + 1) + ' / ' + fanCards.length;
+}
+
+function fanAnimate() {
+  fanPos += (fanTarget - fanPos) * 0.18;
+  fanLayout();
+  if (Math.abs(fanTarget - fanPos) > 0.001) {
+    fanRaf = requestAnimationFrame(fanAnimate);
+  } else {
+    fanPos = fanTarget;
+    fanLayout();
+    fanRaf = null;
+  }
+}
+
+function fanGo(idx) {
+  fanTarget = Math.max(0, Math.min(idx, fanCards.length - 1));
+  fanIdx    = Math.round(fanTarget);
+  if (fanRaf) cancelAnimationFrame(fanRaf);
+  fanRaf = requestAnimationFrame(fanAnimate);
+}
+
+function buildFan(photos) {
+  fanStage.innerHTML = '';
+  fanCards = [];
+
+  photos.forEach(function(src, i) {
+    const card = document.createElement('div');
+    card.className = 'fan-card';
+    card.innerHTML = '<img src="' + src + '" alt="Esküvői fotó ' + (i+1) + '" loading="' + (i < 3 ? 'eager' : 'lazy') + '">' +
+                     '<span class="fan-card-num">' + (i+1) + '</span>';
+    card.addEventListener('click', function() {
+      if (Math.abs(i - fanPos) < 0.6) {
+        lb2Open(i);
+      } else {
+        fanGo(i);
+      }
+    });
+    fanStage.appendChild(card);
+    fanCards.push(card);
+  });
+
+  /* Dots */
+  fanDots.innerHTML = '';
+  photos.forEach(function(_, i) {
+    const dot = document.createElement('div');
+    dot.className = 'fan-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', function() { fanGo(i); });
+    fanDots.appendChild(dot);
+  });
+}
+
+/* ═══ Open / close overlay ═══ */
+function openGallery(idx) {
+  const wed = WEDDINGS[idx];
+  activePhotos = wed.photos;
+
+  ovNames.textContent = wed.title;
+  ovMeta.textContent  = wed.date + ' · ' + wed.location;
+
+  fanPos = 0; fanTarget = 0; fanIdx = 0;
+  buildFan(wed.photos);
+
+  galOv.classList.add('open');
+  galOv.removeAttribute('aria-hidden');
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(function() { fanLayout(); });
+}
+
+function closeGallery() {
+  galOv.classList.remove('open');
+  galOv.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (fanRaf) { cancelAnimationFrame(fanRaf); fanRaf = null; }
+}
+
+document.getElementById('ovClose').addEventListener('click', closeGallery);
+galOv.addEventListener('click', function(e) { if (e.target === galOv) closeGallery(); });
+
+document.getElementById('fanPrev').addEventListener('click', function() { fanGo(Math.round(fanPos) - 1); });
+document.getElementById('fanNext').addEventListener('click', function() { fanGo(Math.round(fanPos) + 1); });
+
+/* ═══ Drag support for fan ═══ */
+let dragX0 = 0, dragPos0 = 0, dragging = false;
+
+fanStage.addEventListener('pointerdown', function(e) {
+  dragging = true; dragX0 = e.clientX; dragPos0 = fanPos;
+  if (fanRaf) { cancelAnimationFrame(fanRaf); fanRaf = null; }
+  fanStage.setPointerCapture(e.pointerId);
+});
+
+fanStage.addEventListener('pointermove', function(e) {
+  if (!dragging) return;
+  const cardW = fanCards[0] ? fanCards[0].offsetWidth : 400;
+  const dx = (dragX0 - e.clientX) / (cardW * 0.7);
+  fanPos = Math.max(0, Math.min(dragPos0 + dx, fanCards.length - 1));
+  fanLayout();
+});
+
+fanStage.addEventListener('pointerup', function(e) {
+  if (!dragging) return;
+  dragging = false;
+  fanGo(Math.round(fanPos));
+});
+
+/* ═══ Keyboard nav ═══ */
+document.addEventListener('keydown', function(e) {
+  if (!galOv.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeGallery();
+  if (e.key === 'ArrowLeft')  fanGo(Math.round(fanPos) - 1);
+  if (e.key === 'ArrowRight') fanGo(Math.round(fanPos) + 1);
+  if (e.key === 'Escape' && lb2.classList.contains('on')) lb2Close();
+});
+
+/* ═══ Lightbox ═══ */
+const lb2    = document.getElementById('lb2');
+const lb2Img = document.getElementById('lb2Img');
+const lb2Num = document.getElementById('lb2Num');
+let lb2I = 0;
+
+function lb2Show() {
+  lb2Img.classList.remove('show');
+  lb2Img.src = activePhotos[lb2I];
+  lb2Img.onload = function() { lb2Img.classList.add('show'); };
+  lb2Num.textContent = (lb2I + 1) + ' · ' + activePhotos.length;
+}
+function lb2Open(i) {
+  lb2I = i; lb2Show();
+  lb2.classList.add('on');
+}
+function lb2Close() {
+  lb2.classList.remove('on');
+}
+function lb2Prev() { lb2I = (lb2I - 1 + activePhotos.length) % activePhotos.length; lb2Show(); }
+function lb2Next() { lb2I = (lb2I + 1)                       % activePhotos.length; lb2Show(); }
+
+document.getElementById('lb2X').addEventListener('click', lb2Close);
+document.getElementById('lb2Prev').addEventListener('click', lb2Prev);
+document.getElementById('lb2Next').addEventListener('click', lb2Next);
+lb2.addEventListener('click', function(e) { if (e.target === lb2) lb2Close(); });
+
+/* ═══ Nav scroll + progress bar ═══ */
+const navEl = document.getElementById('nav');
+const barEl = document.getElementById('bar');
+window.addEventListener('scroll', function() {
+  const sy    = window.scrollY;
+  const maxSy = document.body.scrollHeight - window.innerHeight;
+  navEl.classList.toggle('solid', sy > 60);
+  barEl.style.width = (sy / maxSy * 100) + '%';
+}, { passive: true });
+
+/* ═══ Mobile burger ═══ */
+const burg = document.getElementById('burg');
+const mob  = document.getElementById('mob');
+burg.addEventListener('click', function() {
+  const o = burg.classList.toggle('open');
+  mob.classList.toggle('open', o);
+  document.body.style.overflow = o ? 'hidden' : '';
+});
+document.querySelectorAll('.mob a').forEach(function(l) {
+  l.addEventListener('click', function() {
+    burg.classList.remove('open');
+    mob.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>
