@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://levailevente20-dot.github.io/zalanteszt/sitemap.xml
