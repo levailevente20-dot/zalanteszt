@@ -1,0 +1,9 @@
+# Source originals (5–16 MB/photo, GitHub blocks files >100 MB) — only the
+# web-optimized images/hero, images/mid, images/becs folders get deployed.
+images/photos/
+images/photos.zip
+
+# Local tool state
+.claude/settings.json
+.claude/settings.local.json
+claude.dm

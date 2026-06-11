@@ -6,8 +6,8 @@
 
   <!-- ═══ SEO ═══ -->
   <title>Esküvői Galériák – Fehér Zalán Esküvői Fotós</title>
-  <meta name="description" content="Böngéssz Fehér Zalán esküvői fotógalériái között. Valódi pillanatok, dokumentarista stílusú esküvőfotózás – Emil &amp; Ildikó, Kata &amp; Gergő, Vanda &amp; Nikol, Rebeka &amp; Dávid esküvői képei.">
-  <meta name="keywords" content="esküvői galéria, esküvői fotók, esküvői képek, Fehér Zalán galériák, Tópart Hotel esküvő, Pluto Sky Lounge esküvő, Zsámbék Szépia Bio Art Hotel esküvő">
+  <meta name="description" content="Böngéssz Fehér Zalán esküvői fotógalériái között. Valódi pillanatok, dokumentarista stílusú esküvőfotózás – bécsi esküvő képei.">
+  <meta name="keywords" content="esküvői galéria, esküvői fotók, esküvői képek, Fehér Zalán galériák, bécsi esküvő, külföldi esküvőfotózás">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Fehér Zalán">
   <link rel="canonical" href="https://levailevente20-dot.github.io/zalanteszt/galeria/">
@@ -18,16 +18,16 @@
   <meta property="og:url"         content="https://levailevente20-dot.github.io/zalanteszt/galeria/">
   <meta property="og:title"       content="Esküvői Galériák – Fehér Zalán Esküvői Fotós">
   <meta property="og:description" content="Böngéssz esküvői galériák között – dokumentarista stílusú, valódi pillanatok Budapestről és Magyarországról.">
-  <meta property="og:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/borito-1536x1024.jpg">
-  <meta property="og:image:width"  content="1536">
-  <meta property="og:image:height" content="1024">
+  <meta property="og:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/og-cover.jpg">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name"   content="Fehér Zalán Esküvői Fotográfia">
 
   <!-- ═══ Twitter / X Card ═══ -->
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="Esküvői Galériák – Fehér Zalán Esküvői Fotós">
   <meta name="twitter:description" content="Böngéssz esküvői galériák között – dokumentarista stílusú fotózás.">
-  <meta name="twitter:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/borito-1536x1024.jpg">
+  <meta name="twitter:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/og-cover.jpg">
 
   <!-- ═══ Favicon ═══ -->
   <link rel="icon" href="../favicon.png" type="image/png">
@@ -70,26 +70,8 @@
         "hasPart": [
           {
             "@type": "ImageGallery",
-            "name": "Emil És Ildikó – Tópart Hotel (Olasz–Magyar Esküvő)",
-            "description": "Esküvői fotók Emil és Ildikó esküvőjéről, helyszín: Tópart Hotel, olasz-magyar esküvő.",
-            "provider": { "@id": "https://levailevente20-dot.github.io/zalanteszt/#business" }
-          },
-          {
-            "@type": "ImageGallery",
-            "name": "Kata És Gergő – Pluto Sky Lounge",
-            "description": "Esküvői fotók Kata és Gergő esküvőjéről, helyszín: Pluto Sky Lounge.",
-            "provider": { "@id": "https://levailevente20-dot.github.io/zalanteszt/#business" }
-          },
-          {
-            "@type": "ImageGallery",
-            "name": "Vanda És Nikol – Pluto Sky Lounge",
-            "description": "Esküvői fotók Vanda és Nikol esküvőjéről, helyszín: Pluto Sky Lounge.",
-            "provider": { "@id": "https://levailevente20-dot.github.io/zalanteszt/#business" }
-          },
-          {
-            "@type": "ImageGallery",
-            "name": "Rebeka És Dávid – Zsámbék, Szépia Bio & Art Hotel",
-            "description": "Esküvői fotók Rebeka és Dávid esküvőjéről, helyszín: Zsámbék, Szépia Bio & Art Hotel.",
+            "name": "Esküvő Bécsben – 2026. június",
+            "description": "Esküvői fotók egy bécsi esküvőről, dokumentarista stílusban.",
             "provider": { "@id": "https://levailevente20-dot.github.io/zalanteszt/#business" }
           }
         ]
@@ -247,11 +229,18 @@
       display: grid; grid-template-columns: repeat(2, 1fr);
       gap: 2px;
     }
+    /* Single-album layout: one wide, centred, cinematic card */
+    .wed-grid.single { grid-template-columns: 1fr; max-width: 880px; }
+    .wed-grid.single .wed-card { aspect-ratio: 16/10; }
+    .wed-grid.single .wed-card-ov { padding: 36px 32px; }
+    .wed-grid.single .wed-names { font-size: clamp(1.6rem, 3.4vw, 2.2rem); }
+    .wed-grid.single .wed-meta { font-size: .62rem; }
     .wed-card {
       position: relative; overflow: hidden; cursor: pointer;
       aspect-ratio: 4/3;
       background: var(--c-dark);
     }
+    .wed-card picture { width: 100%; height: 100%; display: block; }
     .wed-cover {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 1s var(--ease), filter .8s;
@@ -283,6 +272,10 @@
       opacity: 0; transition: opacity .4s;
     }
     .wed-card:hover .wed-btn { opacity: 1; }
+    /* Touch devices have no hover — show the CTA persistently */
+    @media (hover: none) {
+      .wed-btn { opacity: 1; align-items: flex-start; justify-content: flex-end; padding: 20px; }
+    }
     .wed-btn-in {
       border: 1px solid rgba(180,178,172,.6);
       padding: 10px 20px;
@@ -356,6 +349,7 @@
       user-select: none;
       -webkit-user-drag: none;
     }
+    .fan-card picture { width: 100%; height: 100%; display: block; pointer-events: none; }
     .fan-card img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       pointer-events: none;
@@ -365,7 +359,7 @@
       font-size: .52rem; letter-spacing: .2em; text-transform: uppercase;
       color: rgba(250,248,244,.55);
     }
-    .fan-card.is-center { box-shadow: 0 32px 96px rgba(0,0,0,.85); }
+    .fan-card.is-center { box-shadow: 0 32px 96px rgba(0,0,0,.85); cursor: zoom-in; }
     .fan-card.is-center:hover { box-shadow: 0 36px 100px rgba(180,178,172,.2), 0 32px 96px rgba(0,0,0,.85); }
 
     /* Fan navigation */
@@ -491,7 +485,7 @@
     <li><a href="../#arak">Árak</a></li>
     <li><a href="../#kapcsolat">Kapcsolat</a></li>
   </ul>
-  <div class="burg" id="burg"><span></span><span></span><span></span></div>
+  <button class="burg" id="burg" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mob" id="mob">
@@ -510,7 +504,7 @@
     <span class="slbl">Munkáim</span>
     <h1 class="pg-title">Esküvői galériák</h1>
     <div class="pg-rule"></div>
-    <p class="pg-sub">Minden esküvő egy egyedi történet — böngéssz a galériák között, és fedezd fel a pillanatokat.</p>
+    <p class="pg-sub">Minden esküvő egy egyedi történet — nézz bele a galériába, és fedezd fel a pillanatokat.</p>
   </div>
 </header>
 
@@ -548,11 +542,14 @@
 </div>
 
 <!-- ════ LIGHTBOX ════ -->
-<div id="lb2">
-  <button class="lb2-x" id="lb2X">✕</button>
-  <img id="lb2Img" alt="Esküvői fotó">
-  <button class="lb2-btn" id="lb2Prev">‹</button>
-  <button class="lb2-btn" id="lb2Next">›</button>
+<div id="lb2" role="dialog" aria-modal="true" aria-label="Kép nagyítása">
+  <button class="lb2-x" id="lb2X" aria-label="Bezárás">✕</button>
+  <picture>
+    <source id="lb2Src" type="image/webp">
+    <img id="lb2Img" alt="Esküvői fotó nagyítva">
+  </picture>
+  <button class="lb2-btn" id="lb2Prev" aria-label="Előző kép">‹</button>
+  <button class="lb2-btn" id="lb2Next" aria-label="Következő kép">›</button>
   <span id="lb2Num"></span>
 </div>
 
@@ -568,6 +565,19 @@
 </footer>
 
 <script>
+/* ═══ file:// fallback ═══
+   Helyi fájlként megnyitva a "../" mappa-URL mappalistát adna —
+   ilyenkor a főoldal index.html-jére irányítunk. Szerveren marad a tiszta URL. */
+if (location.protocol === 'file:') {
+  document.querySelectorAll('a').forEach(function(a) {
+    var h = a.getAttribute('href');
+    if (h === '../') a.setAttribute('href', '../index.html');
+    else if (h && h.indexOf('../#') === 0) a.setAttribute('href', '../index.html#' + h.slice(4));
+  });
+  var brandEl = document.querySelector('.brand');
+  if (brandEl) brandEl.setAttribute('onclick', "location.href='../index.html'");
+}
+
 /* ═══════════════════════════════════════════════
    WEDDING DATA — add/edit weddings here
    Each wedding needs:
@@ -577,108 +587,35 @@
      cover:    "borítókép elérési útja"
      photos:   ["kép1", "kép2", ...]
 ═══════════════════════════════════════════════ */
+const becsPhotos = [];
+for (let bi = 1; bi <= 97; bi++) {
+  becsPhotos.push('../images/becs/becs-' + String(bi).padStart(3, '0') + '.jpg');
+}
+
 const WEDDINGS = [
   {
-    title: 'Emil És Ildikó',
-    date: '',
-    location: 'Tópart Hotel (Olasz–Magyar Esküvő)',
-    cover:  '../images/esk%C3%BCv%C5%911/img10.jpg',
-    photos: [
-      '../images/esk%C3%BCv%C5%911/img02.jpg','../images/esk%C3%BCv%C5%911/img03.jpg',
-      '../images/esk%C3%BCv%C5%911/img04.jpg','../images/esk%C3%BCv%C5%911/img05.jpg',
-      '../images/esk%C3%BCv%C5%911/img06.jpg','../images/esk%C3%BCv%C5%911/img07.jpg',
-      '../images/esk%C3%BCv%C5%911/img08.jpg','../images/esk%C3%BCv%C5%911/img09.jpg',
-      '../images/esk%C3%BCv%C5%911/img10.jpg','../images/esk%C3%BCv%C5%911/img11.jpg',
-      '../images/esk%C3%BCv%C5%911/img12.jpg','../images/esk%C3%BCv%C5%911/img13.jpg',
-      '../images/esk%C3%BCv%C5%911/img14.jpg','../images/esk%C3%BCv%C5%911/img15.jpg',
-      '../images/esk%C3%BCv%C5%911/img16.jpg','../images/esk%C3%BCv%C5%911/img17.jpg',
-      '../images/esk%C3%BCv%C5%911/img18.jpg','../images/esk%C3%BCv%C5%911/img19.jpg',
-      '../images/esk%C3%BCv%C5%911/img20.jpg','../images/esk%C3%BCv%C5%911/img21.jpg',
-      '../images/esk%C3%BCv%C5%911/img22.jpg','../images/esk%C3%BCv%C5%911/img23.jpg',
-      '../images/esk%C3%BCv%C5%911/img24.jpg','../images/esk%C3%BCv%C5%911/img25.jpg',
-      '../images/esk%C3%BCv%C5%911/img26.jpg','../images/esk%C3%BCv%C5%911/img27.jpg',
-      '../images/esk%C3%BCv%C5%911/img28.jpg','../images/esk%C3%BCv%C5%911/img29.jpg',
-    ]
-  },
-  {
-    title: 'Kata És Gergő',
-    date: '',
-    location: 'Pluto Sky Lounge',
-    cover:  '../images/esk%C3%BCv%C5%911/img40.jpg',
-    photos: [
-      '../images/esk%C3%BCv%C5%911/img30.jpg','../images/esk%C3%BCv%C5%911/img31.jpg',
-      '../images/esk%C3%BCv%C5%911/img32.jpg','../images/esk%C3%BCv%C5%911/img33.jpg',
-      '../images/esk%C3%BCv%C5%911/img34.jpg','../images/esk%C3%BCv%C5%911/img35.jpg',
-      '../images/esk%C3%BCv%C5%911/img36.jpg','../images/esk%C3%BCv%C5%911/img37.jpg',
-      '../images/esk%C3%BCv%C5%911/img38.jpg','../images/esk%C3%BCv%C5%911/img39.jpg',
-      '../images/esk%C3%BCv%C5%911/img40.jpg','../images/esk%C3%BCv%C5%911/img41.jpg',
-      '../images/esk%C3%BCv%C5%911/img42.jpg','../images/esk%C3%BCv%C5%911/img43.jpg',
-      '../images/esk%C3%BCv%C5%911/img44.jpg','../images/esk%C3%BCv%C5%911/img45.jpg',
-      '../images/esk%C3%BCv%C5%911/img46.jpg','../images/esk%C3%BCv%C5%911/img47.jpg',
-      '../images/esk%C3%BCv%C5%911/img48.jpg','../images/esk%C3%BCv%C5%911/img49.jpg',
-      '../images/esk%C3%BCv%C5%911/img50.jpg','../images/esk%C3%BCv%C5%911/img51.jpg',
-      '../images/esk%C3%BCv%C5%911/img52.jpg','../images/esk%C3%BCv%C5%911/img53.jpg',
-      '../images/esk%C3%BCv%C5%911/img54.jpg','../images/esk%C3%BCv%C5%911/img55.jpg',
-      '../images/esk%C3%BCv%C5%911/img56.jpg','../images/esk%C3%BCv%C5%911/img57.jpg',
-      '../images/esk%C3%BCv%C5%911/img58.jpg','../images/esk%C3%BCv%C5%911/img59.jpg',
-    ]
-  },
-  {
-    title: 'Vanda És Nikol',
-    date: '',
-    location: 'Pluto Sky Lounge',
-    cover:  '../images/esk%C3%BCv%C5%911/img70.jpg',
-    photos: [
-      '../images/esk%C3%BCv%C5%911/img60.jpg','../images/esk%C3%BCv%C5%911/img61.jpg',
-      '../images/esk%C3%BCv%C5%911/img62.jpg','../images/esk%C3%BCv%C5%911/img63.jpg',
-      '../images/esk%C3%BCv%C5%911/img64.jpg','../images/esk%C3%BCv%C5%911/img65.jpg',
-      '../images/esk%C3%BCv%C5%911/img66.jpg','../images/esk%C3%BCv%C5%911/img67.jpg',
-      '../images/esk%C3%BCv%C5%911/img68.jpg','../images/esk%C3%BCv%C5%911/img69.jpg',
-      '../images/esk%C3%BCv%C5%911/img70.jpg','../images/esk%C3%BCv%C5%911/img71.jpg',
-      '../images/esk%C3%BCv%C5%911/img72.jpg','../images/esk%C3%BCv%C5%911/img73.jpg',
-      '../images/esk%C3%BCv%C5%911/img74.jpg','../images/esk%C3%BCv%C5%911/img75.jpg',
-      '../images/esk%C3%BCv%C5%911/img76.jpg','../images/esk%C3%BCv%C5%911/img77.jpg',
-      '../images/esk%C3%BCv%C5%911/img78.jpg','../images/esk%C3%BCv%C5%911/img79.jpg',
-      '../images/esk%C3%BCv%C5%911/img80.jpg','../images/esk%C3%BCv%C5%911/img81.jpg',
-      '../images/esk%C3%BCv%C5%911/img82.jpg','../images/esk%C3%BCv%C5%911/img83.jpg',
-      '../images/esk%C3%BCv%C5%911/img84.jpg','../images/esk%C3%BCv%C5%911/img85.jpg',
-      '../images/esk%C3%BCv%C5%911/img86.jpg','../images/esk%C3%BCv%C5%911/img87.jpg',
-      '../images/esk%C3%BCv%C5%911/img88.jpg','../images/esk%C3%BCv%C5%911/img89.jpg',
-    ]
-  },
-  {
-    title: 'Rebeka És Dávid',
-    date: '',
-    location: 'Zsámbék, Szépia Bio & Art Hotel',
-    cover:  '../images/esk%C3%BCv%C5%911/img100.jpg',
-    photos: [
-      '../images/esk%C3%BCv%C5%911/img90.jpg', '../images/esk%C3%BCv%C5%911/img91.jpg',
-      '../images/esk%C3%BCv%C5%911/img92.jpg', '../images/esk%C3%BCv%C5%911/img93.jpg',
-      '../images/esk%C3%BCv%C5%911/img94.jpg', '../images/esk%C3%BCv%C5%911/img95.jpg',
-      '../images/esk%C3%BCv%C5%911/img96.jpg', '../images/esk%C3%BCv%C5%911/img97.jpg',
-      '../images/esk%C3%BCv%C5%911/img98.jpg', '../images/esk%C3%BCv%C5%911/img99.jpg',
-      '../images/esk%C3%BCv%C5%911/img100.jpg','../images/esk%C3%BCv%C5%911/img101.jpg',
-      '../images/esk%C3%BCv%C5%911/img102.jpg','../images/esk%C3%BCv%C5%911/img103.jpg',
-      '../images/esk%C3%BCv%C5%911/img104.jpg','../images/esk%C3%BCv%C5%911/img105.jpg',
-      '../images/esk%C3%BCv%C5%911/img106.jpg','../images/esk%C3%BCv%C5%911/img107.jpg',
-      '../images/esk%C3%BCv%C5%911/img108.jpg','../images/esk%C3%BCv%C5%911/img109.jpg',
-      '../images/esk%C3%BCv%C5%911/img110.jpg','../images/esk%C3%BCv%C5%911/img111.jpg',
-      '../images/esk%C3%BCv%C5%911/img112.jpg','../images/esk%C3%BCv%C5%911/img113.jpg',
-      '../images/esk%C3%BCv%C5%911/img114.jpg','../images/esk%C3%BCv%C5%911/img115.jpg',
-      '../images/esk%C3%BCv%C5%911/img116.jpg',
-    ]
+    title: 'Esküvő Bécsben',
+    date: '2026. június',
+    location: 'Bécs, Ausztria',
+    cover:  '../images/becs/becs-057.jpg',
+    photos: becsPhotos
   },
 ];
 
 /* ═══ Build wedding grid ═══ */
 const grid = document.getElementById('wedGrid');
+if (WEDDINGS.length === 1) grid.classList.add('single');
+
+/* Minden jpg mellett van webp változat is */
+function webpOf(p) { return p.replace(/\.jpg$/, '.webp'); }
 
 WEDDINGS.forEach(function(wed, i) {
   const card = document.createElement('div');
   card.className = 'wed-card';
   var metaStr = wed.date ? wed.date + ' · ' + wed.location : wed.location;
   card.innerHTML =
-    '<img class="wed-cover" src="' + wed.cover + '" alt="' + wed.title + '" loading="lazy">' +
+    '<picture><source type="image/webp" srcset="' + webpOf(wed.cover) + '">' +
+    '<img class="wed-cover" src="' + wed.cover + '" alt="' + wed.title + ' – esküvői galéria borítókép" loading="eager"></picture>' +
     '<div class="wed-card-ov">' +
       '<span class="wed-num">' + String(i + 1).padStart(2, '0') + ' · ' + wed.photos.length + ' fotó</span>' +
       '<div class="wed-names">' + wed.title + '</div>' +
@@ -712,6 +649,16 @@ function fanLayout() {
   fanCards.forEach(function(card, i) {
     const off    = i - fanPos;
     const absOff = Math.abs(off);
+    /* Windowed loading: only fetch images near the current position */
+    if (absOff < 7) {
+      const im = card.querySelector('img');
+      if (im && im.dataset.src) {
+        const so = card.querySelector('source');
+        if (so && so.dataset.srcset) { so.srcset = so.dataset.srcset; so.removeAttribute('data-srcset'); }
+        im.src = im.dataset.src;
+        im.removeAttribute('data-src');
+      }
+    }
     const tx     = off * spacing;
     const ty     = absOff * absOff * 14;
     const ry     = off * 16;
@@ -757,26 +704,32 @@ function buildFan(photos) {
   photos.forEach(function(src, i) {
     const card = document.createElement('div');
     card.className = 'fan-card';
-    card.innerHTML = '<img src="' + src + '" alt="Esküvői fotó ' + (i+1) + '" loading="' + (i < 3 ? 'eager' : 'lazy') + '">' +
+    /* First few load immediately, the rest via the fanLayout window */
+    const eager = i < 5;
+    const sAttr   = (eager ? 'srcset="' : 'data-srcset="') + webpOf(src) + '"';
+    const imgAttr = (eager ? 'src="' : 'data-src="') + src + '"';
+    card.innerHTML = '<picture><source type="image/webp" ' + sAttr + '>' +
+                     '<img ' + imgAttr + ' alt="Esküvői fotó ' + (i+1) + '"></picture>' +
                      '<span class="fan-card-num">' + (i+1) + '</span>';
-    card.addEventListener('click', function() {
-      if (Math.abs(i - fanPos) < 0.6) {
-        lb2Open(i);
-      } else {
-        fanGo(i);
-      }
-    });
+    /* Kattintás-kezelés a pointerup-ban van (a setPointerCapture miatt
+       a sima click esemény nem jutna el a kártyáig) */
     fanStage.appendChild(card);
     fanCards.push(card);
   });
 
   fanDots.innerHTML = '';
-  photos.forEach(function(_, i) {
-    const dot = document.createElement('div');
-    dot.className = 'fan-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', function() { fanGo(i); });
-    fanDots.appendChild(dot);
-  });
+  /* Dots only make sense for small albums — large ones rely on the counter */
+  if (photos.length <= 24) {
+    fanDots.style.display = 'flex';
+    photos.forEach(function(_, i) {
+      const dot = document.createElement('div');
+      dot.className = 'fan-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', function() { fanGo(i); });
+      fanDots.appendChild(dot);
+    });
+  } else {
+    fanDots.style.display = 'none';
+  }
 }
 
 /* ═══ Open / close overlay ═══ */
@@ -810,17 +763,19 @@ galOv.addEventListener('click', function(e) { if (e.target === galOv) closeGalle
 document.getElementById('fanPrev').addEventListener('click', function() { fanGo(Math.round(fanPos) - 1); });
 document.getElementById('fanNext').addEventListener('click', function() { fanGo(Math.round(fanPos) + 1); });
 
-/* ═══ Drag support for fan ═══ */
-let dragX0 = 0, dragPos0 = 0, dragging = false;
+/* ═══ Drag + click support for fan ═══ */
+let dragX0 = 0, dragPos0 = 0, dragging = false, dragMoved = 0, downCard = null;
 
 fanStage.addEventListener('pointerdown', function(e) {
-  dragging = true; dragX0 = e.clientX; dragPos0 = fanPos;
+  dragging = true; dragX0 = e.clientX; dragPos0 = fanPos; dragMoved = 0;
+  downCard = e.target.closest ? e.target.closest('.fan-card') : null;
   if (fanRaf) { cancelAnimationFrame(fanRaf); fanRaf = null; }
   fanStage.setPointerCapture(e.pointerId);
 });
 
 fanStage.addEventListener('pointermove', function(e) {
   if (!dragging) return;
+  dragMoved = Math.max(dragMoved, Math.abs(e.clientX - dragX0));
   const cardW = fanCards[0] ? fanCards[0].offsetWidth : 400;
   const dx = (dragX0 - e.clientX) / (cardW * 0.7);
   fanPos = Math.max(0, Math.min(dragPos0 + dx, fanCards.length - 1));
@@ -830,26 +785,51 @@ fanStage.addEventListener('pointermove', function(e) {
 fanStage.addEventListener('pointerup', function(e) {
   if (!dragging) return;
   dragging = false;
+
+  /* Kattintás (nem húzás): középső kép → nagyítás, oldalsó → odalapozás */
+  if (dragMoved < 8 && downCard) {
+    const i = fanCards.indexOf(downCard);
+    downCard = null;
+    if (i !== -1) {
+      if (Math.abs(i - fanPos) < 0.6) { lb2Open(i); }
+      else { fanGo(i); }
+      return;
+    }
+  }
+  downCard = null;
+  fanGo(Math.round(fanPos));
+});
+
+fanStage.addEventListener('pointercancel', function() {
+  dragging = false; downCard = null;
   fanGo(Math.round(fanPos));
 });
 
 /* ═══ Keyboard nav ═══ */
 document.addEventListener('keydown', function(e) {
+  /* Nagyító nyitva: csak azt vezérli, a mögöttes galériát nem */
+  if (lb2.classList.contains('on')) {
+    if (e.key === 'Escape')     lb2Close();
+    if (e.key === 'ArrowLeft')  lb2Prev();
+    if (e.key === 'ArrowRight') lb2Next();
+    return;
+  }
   if (!galOv.classList.contains('open')) return;
   if (e.key === 'Escape')     closeGallery();
   if (e.key === 'ArrowLeft')  fanGo(Math.round(fanPos) - 1);
   if (e.key === 'ArrowRight') fanGo(Math.round(fanPos) + 1);
-  if (e.key === 'Escape' && lb2.classList.contains('on')) lb2Close();
 });
 
 /* ═══ Lightbox ═══ */
 const lb2    = document.getElementById('lb2');
 const lb2Img = document.getElementById('lb2Img');
+const lb2SrcEl = document.getElementById('lb2Src');
 const lb2Num = document.getElementById('lb2Num');
 let lb2I = 0;
 
 function lb2Show() {
   lb2Img.classList.remove('show');
+  lb2SrcEl.srcset = webpOf(activePhotos[lb2I]);
   lb2Img.src = activePhotos[lb2I];
   lb2Img.onload = function() { lb2Img.classList.add('show'); };
   lb2Num.textContent = (lb2I + 1) + ' · ' + activePhotos.length;
@@ -869,6 +849,14 @@ document.getElementById('lb2Prev').addEventListener('click', lb2Prev);
 document.getElementById('lb2Next').addEventListener('click', lb2Next);
 lb2.addEventListener('click', function(e) { if (e.target === lb2) lb2Close(); });
 
+/* Touch swipe in lightbox */
+let lb2Tx = 0;
+lb2.addEventListener('touchstart', function(e) { lb2Tx = e.touches[0].clientX; }, { passive: true });
+lb2.addEventListener('touchend', function(e) {
+  const dx = lb2Tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 44) { if (dx > 0) { lb2Next(); } else { lb2Prev(); } }
+});
+
 /* ═══ Nav scroll + progress bar ═══ */
 const navEl = document.getElementById('nav');
 const barEl = document.getElementById('bar');
@@ -885,6 +873,7 @@ const mob  = document.getElementById('mob');
 burg.addEventListener('click', function() {
   const o = burg.classList.toggle('open');
   mob.classList.toggle('open', o);
+  burg.setAttribute('aria-expanded', o);
   document.body.style.overflow = o ? 'hidden' : '';
 });
 document.querySelectorAll('.mob a').forEach(function(l) {

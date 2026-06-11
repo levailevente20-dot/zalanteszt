@@ -18,9 +18,9 @@
   <meta property="og:url"         content="https://levailevente20-dot.github.io/zalanteszt/">
   <meta property="og:title"       content="Fehér Zalán – Esküvői Fotós Budapest &amp; Magyarország">
   <meta property="og:description" content="Dokumentarista stílusú esküvőfotózás – valódi pillanatok, örök emlékek. Budapesten és egész Magyarországon vállalok munkát.">
-  <meta property="og:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/borito-1536x1024.jpg">
-  <meta property="og:image:width"  content="1536">
-  <meta property="og:image:height" content="1024">
+  <meta property="og:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/og-cover.jpg">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt"   content="Fehér Zalán esküvői fotós – borítókép">
   <meta property="og:site_name"   content="Fehér Zalán Esküvői Fotográfia">
 
@@ -28,7 +28,7 @@
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="Fehér Zalán – Esküvői Fotós Budapest &amp; Magyarország">
   <meta name="twitter:description" content="Dokumentarista stílusú esküvőfotózás – valódi pillanatok, örök emlékek.">
-  <meta name="twitter:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/borito-1536x1024.jpg">
+  <meta name="twitter:image"       content="https://levailevente20-dot.github.io/zalanteszt/images/og-cover.jpg">
 
   <!-- ═══ Favicon ═══ -->
   <link rel="icon" href="favicon.png" type="image/png">
@@ -38,8 +38,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
 
-  <!-- ═══ Performance: preload LCP image ═══ -->
-  <link rel="preload" as="image" href="images/borito-1536x1024.jpg">
+  <!-- ═══ Performance: preload first hero images ═══ -->
+  <link rel="preload" as="image" href="images/hero/hero-01.webp" type="image/webp">
+  <link rel="preload" as="image" href="images/hero/hero-02.webp" type="image/webp">
 
   <!-- ═══ JSON-LD Structured Data ═══ -->
   <script type="application/ld+json">
@@ -54,7 +55,7 @@
         "url": "https://levailevente20-dot.github.io/zalanteszt/",
         "telephone": "+36706152131",
         "email": "feherzalan4@gmail.com",
-        "image": "https://levailevente20-dot.github.io/zalanteszt/images/borito-1536x1024.jpg",
+        "image": "https://levailevente20-dot.github.io/zalanteszt/images/og-cover.jpg",
         "priceRange": "Árajánlat kérésre",
         "currenciesAccepted": "HUF",
         "paymentAccepted": "Átutalás",
@@ -215,6 +216,7 @@
     }
     img { max-width: 100%; display: block; }
     a   { text-decoration: none; color: inherit; }
+    button { background: none; border: none; padding: 0; color: inherit; font: inherit; cursor: pointer; }
 
     :root {
       --c-white:      #FAF8F4;
@@ -434,6 +436,7 @@
       border-radius: 8px; overflow: hidden;
       will-change: transform;
     }
+    .hg-item picture { width: 100%; height: 100%; display: block; }
     .hg-item img {
       width: 100%; height: 100%;
       object-fit: cover; display: block;
@@ -1203,7 +1206,6 @@
     /* Tablet fekvő / kis laptop */
     @media (max-width: 900px) {
       .wrap { padding: 88px 36px; }
-      .masonry { columns: 2; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .aimg-frame img { height: 400px; }
       .cg { grid-template-columns: 1fr; gap: 52px; }
@@ -1248,7 +1250,6 @@
 
     /* Mobil */
     @media (max-width: 520px) {
-      .masonry { columns: 1; }
       .frow { grid-template-columns: 1fr; }
       .fnav { flex-wrap: wrap; justify-content: center; gap: 12px 20px; }
 
@@ -1289,84 +1290,64 @@
     }
 
     /* ───────────────────────────────────────────
-       ANIMATED GALLERY
+       PORTFÓLIÓ — IMAGE STRIP
     ─────────────────────────────────────────── */
     #galeria { background: var(--c-dark); }
 
-    /* Heading — scrolls away before sticky kicks in */
-    .agal-intro {
+    .gal-intro {
       text-align: center;
-      padding: 100px 24px 72px;
+      padding: 100px 24px 56px;
     }
-    .agal-intro .srule, .agal-intro-rule { margin: 0 auto; background: rgba(180,178,172,.35); }
+    .gal-intro .srule, .gal-intro-rule { margin: 0 auto; background: rgba(180,178,172,.35); }
 
-    .agal-scroll { height: 360vh; position: relative; }
-
-    .agal-sticky {
-      position: sticky; top: 0;
-      height: 100vh; overflow: hidden;
-      background: var(--c-dark);
-    }
-
-    /* Perspective wrapper — full viewport, centres the constrained grid */
-    .agal-container {
-      position: absolute; inset: 0;
-      perspective: 900px;
-      perspective-origin: 50% 0%;
+    .pstrip { position: relative; }
+    #port-gallery {
+      position: relative;
+      height: clamp(340px, 54vh, 540px);
       overflow: hidden;
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
+      cursor: grab;
+      opacity: 0;
+      transition: opacity 1.2s ease;
     }
+    #port-gallery.in { opacity: 1; }
+    #port-gallery:active { cursor: grabbing; }
+    #port-gallery .hg-item { cursor: pointer; }
+    #port-gallery .hg-item:hover img { opacity: .85; }
+    #port-gallery .hg-item img { transition: opacity .3s; }
 
-    /* Constrained 3-col grid — max 1100 px wide, columns overflow vertically */
-    .agal-wrap {
-      width: min(88vw, 1100px);
-      flex-shrink: 0;
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      transform-origin: 50% 50%;
-      transform-style: preserve-3d;
-      will-change: transform;
+    /* Side fades */
+    .pstrip::before, .pstrip::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 90px;
+      z-index: 3; pointer-events: none;
     }
+    .pstrip::before { left: 0;  background: linear-gradient(to right, var(--c-dark), transparent); }
+    .pstrip::after  { right: 0; background: linear-gradient(to left,  var(--c-dark), transparent); }
 
-    .agal-col {
-      display: flex; flex-direction: column;
-      gap: 12px;
-      will-change: transform;
+    /* Manual arrows */
+    .pg-arr {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 5;
+      width: 48px; height: 48px;
+      border: 1px solid rgba(250,248,244,.22);
+      background: rgba(12,11,8,.55);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(250,248,244,.7);
+      transition: border-color .3s, color .3s;
     }
-    .agal-col-mid { margin-top: -52%; }
+    .pg-arr:hover { border-color: var(--c-gold); color: var(--c-gold); }
+    .pg-arr svg { width: 14px; height: 14px; stroke: currentColor; }
+    #pgPrev { left: 22px; }
+    #pgNext { right: 22px; }
 
-    .agal-img {
-      width: 100%; flex-shrink: 0;
-      aspect-ratio: 3/2;
-      object-fit: cover; object-position: center;
-      border-radius: 8px; display: block;
-      cursor: pointer;
-      transition: opacity .3s;
-    }
-    .agal-img:hover { opacity: .82; }
+    .gal-cta { text-align: center; padding: 56px 24px 110px; }
 
-    .agal-hint {
-      position: absolute; bottom: 22px; left: 0; right: 0;
-      text-align: center;
-      font-family: 'Josefin Sans', sans-serif;
-      font-weight: 200; font-size: .58rem;
-      letter-spacing: .3em; text-transform: uppercase;
-      color: rgba(250,248,244,.28);
-      animation: pulse 3s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @media (max-width: 900px) {
-      .agal-wrap { grid-template-columns: repeat(2, 1fr); width: min(90vw, 720px); }
-      .agal-col-last { display: none; }
-      .agal-col-mid { margin-top: -60%; }
-    }
-    @media (max-width: 540px) {
-      .agal-scroll { height: 280vh; }
-      .agal-wrap { grid-template-columns: 1fr; width: 90vw; }
-      .agal-col-mid { display: none; }
+    @media (max-width: 600px) {
+      .pg-arr { width: 40px; height: 40px; }
+      #pgPrev { left: 10px; }
+      #pgNext { right: 10px; }
+      .pstrip::before, .pstrip::after { width: 40px; }
+      .gal-cta { padding: 44px 24px 80px; }
     }
 
     /* ───────────────────────────────────────────
@@ -1448,7 +1429,7 @@
     <li><a href="#arak">Árak</a></li>
     <li><a href="#kapcsolat">Kapcsolat</a></li>
   </ul>
-  <div class="burg" id="burg"><span></span><span></span><span></span></div>
+  <button class="burg" id="burg" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- Mobile menu -->
@@ -1554,13 +1535,13 @@
 
         <p class="about-body rev d3">
           Szia, Fehér Zalán vagyok. Tudom, milyen érzés, amikor a fotós azt mondja: „Álljatok ide,
-          most csókoljátok meg egymást." Én épp ezt nem csinálom.
+          most csókoljátok meg egymást." De emiatt ne aggódjatok....
         </p>
         <p class="about-body rev d3">
-          Az esküvőtök napján az a feladatom, hogy eltűnjek — és ott legyek, amikor azok a
-          pillanatok megtörténnek, amelyeket nem lehet megrendezni: az apa elfogódott mosolya,
+          Az esküvőtök napján az a feladatom, hogy eltűnjek és ott legyek, amikor azok a
+          pillanatok megtörténnek, amelyeket nem lehet megrendezni: az apa mosolya,
           az első tekintet az oltár előtt, a vacsora utáni spontán nevetések. Pontosan ezért
-          lettem esküvői fotós — minden nap egyedi, minden pár más, és mindig van valami,
+          lettem esküvői fotós, minden nap egyedi, minden pár más, és mindig van valami,
           amit csak én láttam meg.
         </p>
 
@@ -1593,35 +1574,32 @@
 </section>
 
 <!-- ════════════════════════════════════════════
-     GALÉRIA — ANIMATED 3-COL
+     GALÉRIA — MASONRY
 ════════════════════════════════════════════ -->
 <section id="galeria">
 
-  <!-- Heading scrolls away, then sticky gallery takes over -->
-  <div class="agal-intro on-dark">
+  <div class="gal-intro on-dark">
     <span class="slbl rev">Portfólió</span>
     <h2 class="stitle" id="galTitle">
       <span class="wr"><span>Képek,</span></span>
       <span class="wr d2"><span>amelyek</span></span><br>
       <em class="wr d3"><span>mesélnek</span></em>
     </h2>
-    <div class="srule agal-intro-rule"></div>
+    <div class="srule gal-intro-rule"></div>
   </div>
 
-  <div class="agal-scroll">
-    <div class="agal-sticky">
+  <div class="pstrip">
+    <div id="port-gallery"></div>
+    <button class="pg-arr" id="pgPrev" aria-label="Előző képek">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button class="pg-arr" id="pgNext" aria-label="Következő képek">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
 
-      <div class="agal-container">
-        <div class="agal-wrap" id="agalWrap">
-          <div class="agal-col" id="agalC0"></div>
-          <div class="agal-col agal-col-mid" id="agalC1"></div>
-          <div class="agal-col agal-col-last" id="agalC2"></div>
-        </div>
-      </div>
-
-      <p class="agal-hint">Görgess a galéria megtekintéséhez</p>
-
-    </div>
+  <div class="gal-cta rev">
+    <a href="galeria/" class="btn btn-ghost">Teljes galéria megtekintése</a>
   </div>
 
 </section>
@@ -2095,104 +2073,76 @@
   </div>
 </footer>
 
-<div id="lb">
+<div id="lb" role="dialog" aria-modal="true" aria-label="Kép nagyítása">
   <div class="lb-in">
-    <div class="lb-x" id="lbX"></div>
-    <div class="lb-arr" id="lbPrev">
+    <button class="lb-x" id="lbX" aria-label="Bezárás"></button>
+    <button class="lb-arr" id="lbPrev" aria-label="Előző kép">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
-    </div>
-    <img id="lbImg" src="" alt="">
-    <div class="lb-arr" id="lbNext">
+    </button>
+    <picture>
+      <source id="lbSrc" type="image/webp">
+      <img id="lbImg" src="" alt="Esküvői fotó nagyítva">
+    </picture>
+    <button class="lb-arr" id="lbNext" aria-label="Következő kép">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-    </div>
+    </button>
     <div id="lbNum"></div>
   </div>
 </div>
 
 <!-- Back to top -->
-<div id="btt">
+<button id="btt" aria-label="Vissza az oldal tetejére">
   <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M5 15l7-7 7 7"/>
   </svg>
-</div>
+</button>
 
 <!-- ════════════════════════════════════════════
      JAVASCRIPT
 ════════════════════════════════════════════ -->
 <script>
-/* ─── Gallery images ─────────────────────────── */
+/* ─── file:// fallback ────────────────────────
+   Helyi fájlként megnyitva a böngésző a "galeria/" mappa-URL-re
+   mappalistát mutat — ilyenkor az index.html-re irányítunk.
+   Szerveren (http/https) a tiszta URL marad. */
+if (location.protocol === 'file:') {
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href="galeria/"]').forEach(function(a) {
+      a.setAttribute('href', 'galeria/index.html');
+    });
+  });
+}
+
+/* ─── Gallery images — kurált válogatás az images/mid mappából ── */
 const GALLERY = [
-  'images/esk%C3%BCv%C5%911/img02.jpg',
-  'images/esk%C3%BCv%C5%911/img03.jpg',
-  'images/esk%C3%BCv%C5%911/img04.jpg',
-  'images/esk%C3%BCv%C5%911/img05.jpg',
-  'images/esk%C3%BCv%C5%911/img06.jpg',
-  'images/esk%C3%BCv%C5%911/img07.jpg',
-  'images/esk%C3%BCv%C5%911/img08.jpg',
-  'images/esk%C3%BCv%C5%911/img09.jpg',
-  'images/esk%C3%BCv%C5%911/img10.jpg',
-  'images/esk%C3%BCv%C5%911/img11.jpg',
-  'images/esk%C3%BCv%C5%911/img12.jpg',
-  'images/esk%C3%BCv%C5%911/img13.jpg',
-  'images/esk%C3%BCv%C5%911/img14.jpg',
-  'images/esk%C3%BCv%C5%911/img15.jpg',
-  'images/esk%C3%BCv%C5%911/img16.jpg',
+  'images/mid/mid-01.jpg',
+  'images/mid/mid-05.jpg',
+  'images/mid/mid-10.jpg',
+  'images/mid/mid-13.jpg',
+  'images/mid/mid-03.jpg',
+  'images/mid/mid-19.jpg',
+  'images/mid/mid-15.jpg',
+  'images/mid/mid-22.jpg',
+  'images/mid/mid-26.jpg',
+  'images/mid/mid-08.jpg',
+  'images/mid/mid-28.jpg',
+  'images/mid/mid-35.jpg',
+  'images/mid/mid-17.jpg',
+  'images/mid/mid-41.jpg',
+  'images/mid/mid-30.jpg',
+  'images/mid/mid-44.jpg',
+  'images/mid/mid-37.jpg',
+  'images/mid/mid-43.jpg',
 ];
 
-/* ─── Build animated 3-col gallery ──────────── */
-(function() {
-  var wrap = document.getElementById('agalWrap');
-  var cols = [
-    document.getElementById('agalC0'),
-    document.getElementById('agalC1'),
-    document.getElementById('agalC2'),
-  ];
-  if (!wrap || !cols[0] || GALLERY.length === 0) return;
-
-  GALLERY.forEach(function(src, i) {
-    var img = document.createElement('img');
-    img.className = 'agal-img';
-    img.src = src;
-    img.alt = 'Esküvői fotó';
-    img.loading = i < 6 ? 'eager' : 'lazy';
-    img.addEventListener('click', (function(idx) { return function() { lbOpen(idx); }; })(i));
-    cols[i % 3].appendChild(img);
-  });
-
-  var scrollEl = document.querySelector('.agal-scroll');
-
-  function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
-  function map(v, a, b, c, d) { return c + (d - c) * clamp((v - a) / (b - a), 0, 1); }
-
-  var ticking = false;
-  function update() {
-    var rect  = scrollEl.getBoundingClientRect();
-    var areaH = scrollEl.offsetHeight - window.innerHeight;
-    if (areaH <= 0) { ticking = false; return; }
-    var p = clamp(-rect.top / areaH, 0, 1);
-
-    var rotX = map(p, 0, 0.55, 68, 0);
-    var sc   = map(p, 0.45, 0.85, 1.12, 1);
-    wrap.style.transform = 'rotateX(' + rotX + 'deg) scale(' + sc + ')';
-
-    cols[0].style.transform = 'translateY(' + map(p, 0.45, 1, -12, 2)  + '%)';
-    cols[1].style.transform = 'translateY(' + map(p, 0.45, 1,  16, 4)  + '%)';
-    cols[2].style.transform = 'translateY(' + map(p, 0.45, 1, -12, 2)  + '%)';
-
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', function() {
-    if (!ticking) { ticking = true; requestAnimationFrame(update); }
-  }, { passive: true });
-
-  requestAnimationFrame(update);
-})();
+/* Minden jpg mellett van webp változat is */
+function webpOf(p) { return p.replace(/\.jpg$/, '.webp'); }
 
 /* ─── Lightbox ───────────────────────────────── */
 let lbI = 0;
 const lb    = document.getElementById('lb');
 const lbImg = document.getElementById('lbImg');
+const lbSrc = document.getElementById('lbSrc');
 const lbNum = document.getElementById('lbNum');
 
 function lbOpen(i) {
@@ -2203,6 +2153,7 @@ function lbOpen(i) {
 function lbClose() { lb.classList.remove('on'); document.body.style.overflow = ''; }
 function lbShow() {
   lbImg.classList.remove('show');
+  lbSrc.srcset = webpOf(GALLERY[lbI]);
   lbImg.src = GALLERY[lbI];
   lbImg.onload = () => lbImg.classList.add('show');
   lbNum.textContent = (lbI + 1) + ' · ' + GALLERY.length;
@@ -2259,32 +2210,17 @@ const mob  = document.getElementById('mob');
 burg.addEventListener('click', () => {
   const o = burg.classList.toggle('open');
   mob.classList.toggle('open', o);
+  burg.setAttribute('aria-expanded', o);
   document.body.style.overflow = o ? 'hidden' : '';
 });
 document.querySelectorAll('.ml').forEach(l => {
   l.addEventListener('click', () => {
     burg.classList.remove('open');
     mob.classList.remove('open');
+    burg.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   });
 });
-
-/* ─── Hero photo reveal ──────────────────────── */
-(function() {
-  var img  = document.getElementById('heroImg');
-  var rule = document.getElementById('hRule');
-  if (!img) return;
-  function reveal() {
-    img.classList.add('in');
-    setTimeout(function() { if (rule) rule.classList.add('in'); }, 500);
-    document.querySelectorAll('#hTitle .wr').forEach(function(w, i) {
-      setTimeout(function() { w.classList.add('loaded'); }, 200 + i * 150);
-    });
-  }
-  if (img.complete && img.naturalWidth > 0) reveal();
-  else img.addEventListener('load', reveal);
-})();
-
 
 /* ─── Intersection Observer — reveals ───────── */
 const io = new IntersectionObserver(entries => {
@@ -2549,56 +2485,72 @@ initTimeline('fogFlow',   'fogFill');
 </script>
 
 <!-- ════════════════════════════════════════════
-     HERO GALLERY — pure CSS/JS, no dependencies
+     IMAGE STRIPS (hero + portfólió) — pure CSS/JS
 ════════════════════════════════════════════ -->
 <script>
 
 (function() {
 'use strict';
 
-/* ── Image list ── */
-var IMGS = [
-  'images/esküvő1/img02.jpg', 'images/esküvő1/img06.jpg',
-  'images/esküvő1/img10.jpg', 'images/esküvő1/img14.jpg',
-  'images/esküvő1/img18.jpg', 'images/esküvő1/img22.jpg',
-  'images/esküvő1/img26.jpg', 'images/esküvő1/img30.jpg',
-  'images/esküvő1/img34.jpg', 'images/esküvő1/img38.jpg',
-  'images/esküvő1/img42.jpg', 'images/esküvő1/img46.jpg',
-  'images/esküvő1/img50.jpg', 'images/esküvő1/img54.jpg',
-  'images/esküvő1/img58.jpg', 'images/esküvő1/img62.jpg',
-  'images/esküvő1/img66.jpg', 'images/esküvő1/img70.jpg'
-];
+/* ── Hero images — images/hero (web-optimized, 18 db) ── */
+var IMGS = [];
+for (var hi = 1; hi <= 18; hi++) {
+  IMGS.push('images/hero/hero-' + ('0' + hi).slice(-2) + '.jpg');
+}
 
-/* ── Gallery init ── */
-function init() {
-  var el = document.getElementById('hero-gallery');
-  if (!el) return;
+var GAP = 12;
+var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── Újrahasznosítható képsáv (hero + portfólió) ──
+   opts.auto      – sodródás px/frame (előjel = irány)
+   opts.bend      – ív: -1 = szélek fel (U), +1 = boltív, szélek le (∩)
+   opts.onClick(i)– kattintás egy képre (drag közben nem sül el)
+   opts.prevId / opts.nextId – manuális léptető nyilak */
+function buildStrip(id, imgs, opts) {
+  var el = document.getElementById(id);
+  if (!el || !imgs.length) return;
+
+  var AUTO = REDUCED ? 0 : opts.auto;
+  var bend = opts.bend;
+
+  var offset = 0, loopW = 0;
+  var isDrag = false, dragX = 0, dragOff = 0, vel = 0, moved = 0;
+  var running = false;
 
   /* Build DOM — triple the images for seamless infinite loop */
-  var all = IMGS.concat(IMGS).concat(IMGS);
+  var all = imgs.concat(imgs).concat(imgs);
   var track = document.createElement('div');
   track.className = 'hg-track';
-  all.forEach(function(src) {
+  all.forEach(function(src, i) {
     var wrap = document.createElement('div');
     wrap.className = 'hg-item';
+    var pic = document.createElement('picture');
+    var s = document.createElement('source');
+    s.type = 'image/webp';
+    s.srcset = src.replace(/\.jpg$/, '.webp');
     var img = document.createElement('img');
     img.src = src;
-    img.alt = 'Esküvői fotó';
+    img.alt = 'Esküvői fotó – Fehér Zalán portfólió';
     img.draggable = false;
-    wrap.appendChild(img);
+    img.decoding = 'async';
+    pic.appendChild(s);
+    pic.appendChild(img);
+    wrap.appendChild(pic);
+    if (opts.onClick) {
+      (function(idx) {
+        wrap.addEventListener('click', function() {
+          if (moved < 8) opts.onClick(idx);
+        });
+      })(i % imgs.length);
+    }
     track.appendChild(wrap);
   });
   el.appendChild(track);
 
-  /* Scroll state */
-  var offset = 0, loopW = 0;
-  var isDrag = false, dragX = 0, dragOff = 0, vel = 0;
-  var AUTO = 0.65;
-
   function calcLoopW() {
     var first = track.firstElementChild;
     if (!first) return 0;
-    return IMGS.length * (first.offsetWidth + 12);
+    return imgs.length * (first.offsetWidth + GAP);
   }
 
   /* Bend: parabolic Y + scale + tilt per item */
@@ -2613,9 +2565,9 @@ function init() {
       var ic = r.left + r.width / 2;
       var t  = (ic - cx) / (elR.width / 2);
       t = Math.max(-1.6, Math.min(1.6, t));
-      var yOff = -(maxY * t * t);
+      var yOff = bend * maxY * t * t;
       var sc   = 1 - Math.abs(t) * 0.07;
-      var rz   = -t * 2.2;
+      var rz   = bend * t * 2.2;
       items[i].style.transform =
         'translateY(' + yOff.toFixed(1) + 'px) ' +
         'scale('      + sc.toFixed(3)   + ') ' +
@@ -2623,8 +2575,9 @@ function init() {
     }
   }
 
-  /* Animation loop */
+  /* Animation loop — only runs while the strip is on screen */
   function tick() {
+    if (!running) return;
     if (!loopW) loopW = calcLoopW();
     if (!isDrag) {
       vel  += (AUTO - vel) * 0.07;
@@ -2638,32 +2591,68 @@ function init() {
     applyBend();
     requestAnimationFrame(tick);
   }
+  function start() { if (!running) { running = true; requestAnimationFrame(tick); } }
+  function stop()  { running = false; }
 
   /* Drag — mouse */
   el.addEventListener('mousedown', function(e) {
-    isDrag = true; vel = 0;
+    isDrag = true; vel = 0; moved = 0;
     dragX = e.clientX; dragOff = offset;
   });
   window.addEventListener('mousemove', function(e) {
     if (!isDrag) return;
+    moved = Math.max(moved, Math.abs(e.clientX - dragX));
     offset = dragOff - (e.clientX - dragX);
   });
   window.addEventListener('mouseup', function() { isDrag = false; });
 
   /* Drag — touch */
   el.addEventListener('touchstart', function(e) {
-    isDrag = true; vel = 0;
+    isDrag = true; vel = 0; moved = 0;
     dragX = e.touches[0].clientX; dragOff = offset;
   }, { passive: true });
   window.addEventListener('touchmove', function(e) {
     if (!isDrag) return;
+    moved = Math.max(moved, Math.abs(e.touches[0].clientX - dragX));
     offset = dragOff - (e.touches[0].clientX - dragX);
   }, { passive: true });
   window.addEventListener('touchend', function() { isDrag = false; });
 
-  /* Go */
-  requestAnimationFrame(tick);
+  /* Manual arrows — egy kártyányi lendület, ami visszasimul a sodródásba */
+  function nudge(dir) {
+    var first = track.firstElementChild;
+    var step = first ? (first.offsetWidth + GAP) : 280;
+    vel += dir * step * 0.07;
+    start();
+  }
+  if (opts.prevId) {
+    var pBtn = document.getElementById(opts.prevId);
+    if (pBtn) pBtn.addEventListener('click', function() { nudge(-1); });
+  }
+  if (opts.nextId) {
+    var nBtn = document.getElementById(opts.nextId);
+    if (nBtn) nBtn.addEventListener('click', function() { nudge(1); });
+  }
+
+  /* Go — pause the loop while the strip is scrolled out of view */
+  new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { start(); } else { stop(); } });
+  }).observe(el);
   el.classList.add('in');
+}
+
+/* ── Init both strips ── */
+function init() {
+  /* Hero: U ív (szélek emelkednek), balra sodródik */
+  buildStrip('hero-gallery', IMGS, { auto: 0.65, bend: -1 });
+
+  /* Portfólió: fordított ív (∩ — lentről indul, középen felemelkedik,
+     majd visszaereszkedik), ellentétes irányú sodródás, nyilak + lightbox */
+  buildStrip('port-gallery', GALLERY, {
+    auto: -0.5, bend: 1,
+    onClick: lbOpen,
+    prevId: 'pgPrev', nextId: 'pgNext'
+  });
 
   /* Hero text reveals */
   var rule = document.getElementById('hRule');
